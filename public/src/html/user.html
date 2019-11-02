@@ -32,7 +32,14 @@
       <div id = "user-greeting"> </div>
 
       <div class = "card">
-        <div id = "user-profile-pic"> </div>
+
+        <div id = "user-profile-pic">
+
+          <video autoplay="true" onplay="onPlay(this)" id="videoElement"></video>
+          <canvas id = "overlay"/>
+
+        </div>
+
         <div id = "user-info"> </div>
       </div>
 
@@ -40,12 +47,17 @@
 
     <div id = "console" class = "right-side">
 
-      <div class = "widget">
-        <div id = "c-tired-status"> Hello </div>
+      <div class = "widget1">
+        <p id = "c-tired-subtitle"> Energy level: </p>
+        <div id = "c-tired-status"> <p size = "50px"> 0 </p> </div>
       </div>
 
       <div class = "widget">
         <canvas id = "sleep-graph" width = "375px" height = "220px"> </cavas>
+      </div>
+
+      <div class = "widget2">
+
       </div>
 
 

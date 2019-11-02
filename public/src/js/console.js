@@ -3,7 +3,7 @@
 const GRAPH_LABELS = ["0", "5", "10", "15", "20"];
 
 // Integer user energy level array
-let energy_data_array = new Array(5);
+let energy_data_array = [0, 1, 2, 3];
 
 // Realtime database initialization
 let db = firebase.database();
@@ -12,6 +12,8 @@ let db = firebase.database();
 let user_greeting = document.getElementById("user-greeting");
 let user_profile_pic = document.getElementById("user-profile-pic");
 let user_info = document.getElementById("user-info");
+// Get DOM elements for the right side widgets
+let c_tired_status = document.getElementById("c-tired-status");
 
 // This function appends data to the chart
 function addData(chart, label, data) {
@@ -29,6 +31,18 @@ function removeData(chart) {
         dataset.data.pop();
     });
     chart.update();
+}
+
+var video = document.querySelector("#videoElement");
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
 }
 
 // Event Listener for DOM intro text append
@@ -57,11 +71,14 @@ firebase.auth().onAuthStateChanged(function(user) {
     user_profile_pic_img.style.width = "40vh";
     user_profile_pic_img.style.height = "50vh";
 
-    // Append the text nodes to html elements and attach under associated profile section
-    user_greeting.appendChild(user_greeting_el.appendChild(user_greeting_tn));
-    user_profile_pic.appendChild(user_profile_pic_img);
-    user_info.appendChild(user_info_el.appendChild(user_info_tn));
+    // Take the latest tiredness update and append it to the expanded info metric area/widget
+    while (c_tired_status.firstChild) {
+      c_tired_status.removeChild(c_tired_status.firstChild);
+    }
 
+    let c_tired_tn = document.createTextNode(energy_data_array[0] + "");
+    let c_tired_el = document.createElement("h1");
+    c_tired_status.appendChild(c_tired_el.appendChild(c_tired_tn));
 
     /* Fetch data from the realtime database and pipe/feed it into the widgets */
 
@@ -95,6 +112,11 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     });
 
+    // Append the text nodes to html elements and attach under associated profile section
+    user_greeting.appendChild(user_greeting_el.appendChild(user_greeting_tn));
+    //user_profile_pic.appendChild(user_profile_pic_img);
+    user_info.appendChild(user_info_el.appendChild(user_info_tn));
+
     /* Build and draw the energy level graph */
     removeData(chart);
 
@@ -125,7 +147,18 @@ var chart = new Chart(ctx, {
 
 // Every 3 seconds, call a periodic function that updates the sleep graph/chart with new prediction data
 setInterval(function() {
+
   // Remove and re-apply data
   addData(chart, GRAPH_LABELS, energy_data_array);
   removeData(chart);
+
+  // Take the latest tiredness update and append it to the expanded info metric area/widget
+  while (c_tired_status.firstChild) {
+    c_tired_status.removeChild(c_tired_status.firstChild);
+  }
+
+  let c_tired_tn = document.createTextNode(energy_data_array[0] + "");
+  let c_tired_el = document.createElement("h1");
+  c_tired_status.appendChild(c_tired_el.appendChild(c_tired_tn));
+
 }, 3000);
