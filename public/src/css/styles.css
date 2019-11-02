@@ -134,6 +134,20 @@
   padding-right: 3%;
 }
 
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #282828;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #282828;
+}
+
 img.icon-main {
   position: absolute;
   width: 30%;
@@ -145,4 +159,8 @@ img.icon-main {
 
 body {
   background-color: #282828;
+}
+
+html {
+  overflow: hidden;
 }

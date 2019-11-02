@@ -11,4 +11,3 @@ var firebaseConfig = {
 };
 // Initialize the app
 firebase.initializeApp(firebaseConfig);
-console.log("Bruh");

@@ -1,0 +1,26 @@
+
+#side-nav.left-side {
+  background-color: #282828;
+  margin-left: -1%;
+  width: 25%;
+  margin-top: -2%;
+  height: 105vh;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white;
+}
+
+html {
+  overflow: hidden;
+}

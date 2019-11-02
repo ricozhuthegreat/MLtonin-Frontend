@@ -4,11 +4,33 @@
 
   <head>
 
+    <!-- Local Styles for Admin Web Console -->
+    <link type = "text/css" rel = "stylesheet" href = "../css/console.css"/>
+
+    <!-- Re-initialize firebase scriptes for second html page -->
+    <script src="/__/firebase/7.2.3/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script src="/__/firebase/7.2.3/firebase-auth.js"></script>
+    <script src="/__/firebase/7.2.3/firebase-database.js"></script>
+    <script src="/__/firebase/7.2.3/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script src="/__/firebase/init.js"></script>
+    <!-- Local scripts -->
+    <script type = "text/javascript" src = "../js/console.js"></script>
+
   </head>
 
   <body>
 
-    <h1> Good to see ya! </h1>
+    <!-- Side terminal, includes user profile and user informatics -->
+    <div id = "side-nav" class = "left-side">
+
+      <!-- Greeting will change depending on time of day -->
+      <div id = "user-gretting"> </div>
+      <div id = "user-profile-pic"> </div>
+      <div id = "user-info"> </div>
+
+    </div>
 
   </body>
 
