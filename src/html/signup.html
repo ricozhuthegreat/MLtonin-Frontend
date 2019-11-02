@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <link type="text/css" rel ="stylesheet" href = "login.css"/>
+  <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  const firebaseConfig = {
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  </script>
+
+</head>
+
+<body>
+
+  <div id="def-log-in">
+    <form>
+      <div>
+        <label for="username">Username:</label>
+        <input id="email" type="text" name="username" placeholder="mysupercoolemail@hmail.com"> <br>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password" placeholder="hunter2">
+      <div/>
+      <div>
+        <input id="sign-up" type="submit" value="Sign up">
+      </div>
+    </form>
+  </div>
+
+  <!--Handle auth events-->
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      console.log(user);
+      if (user !== null) {
+        window.location = "index.html";
+      }
+    });
+  </script>
+
+  <!--Handle page events-->
+  <script>
+    document.querySelector('#sign-up').addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      let email = document.querySelector('#email').value;
+      let password = document.querySelector('#password').value;
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      })
+    });
+  </script>
+
+</body>
+
+</html>
