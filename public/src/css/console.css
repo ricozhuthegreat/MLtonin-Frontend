@@ -1,24 +1,63 @@
 
+.left-side {
+  float: left;
+}
+
+.right-side {
+  float: right;
+}
+
+.widget {
+
+}
+
 #side-nav.left-side {
+  float: left;
   background-color: #282828;
   margin-left: -1%;
   width: 25%;
-  margin-top: -2%;
   height: 105vh;
+  padding-left: 3%;
+  padding-right: 0%;
+  padding-top: 10%;
+  margin-top: -2%;
+}
+
+#console.right-side {
+  float: right;
+}
+
+#user-greeting {
+  font-size: 40px;
+  color: white;
+  font-family: 'Lato', sans-serif;
+}
+
+#user-info {
+  margin-top: 50%;
+  font-size: 20px;
+  font-family: 'Lato', sans-serif;
+  color: white;
 }
 
 ::-webkit-scrollbar {
   width: 20px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: white;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: white;
+}
+
+h1 {
+  font-family: 'Lato', sans-serif;
+}
+
+h2 {
+  font-family: 'Lato', sans-serif;
 }
 
 html {
