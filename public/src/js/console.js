@@ -18,7 +18,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // The user's username is their email's part before the '@' symbol... (with a '@' symbol at the front because it looks cooler)
     let username = email.substring(0, email.indexOf("@"));
     // Append sample message for greeting. TODO: check time and append differeing texts (e.g., Good evening, Good morning .etc)
-    let user_greeting_tn = document.createTextNode("Welcome back " + username);
+    let user_greeting_tn = document.createTextNode("Welcome back, " + username);
     username = "@" + username + "   " + String.fromCodePoint(0x1F971);
     let user_info_tn = document.createTextNode(username);
 
