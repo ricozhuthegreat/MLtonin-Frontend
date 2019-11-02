@@ -7,6 +7,14 @@
   float: right;
 }
 
+.card {
+  border-radius: 2%;
+  background: white;
+  padding-left: 7%;
+  padding-bottom: 7%;
+  margin-right: 12%;
+}
+
 .widget {
 
 }
@@ -19,7 +27,7 @@
   height: 105vh;
   padding-left: 3%;
   padding-right: 0%;
-  padding-top: 10%;
+  padding-top: 6%;
   margin-top: -2%;
 }
 
@@ -33,23 +41,17 @@
   font-family: 'Lato', sans-serif;
 }
 
+#user-profile-pic {
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-top: 7%;
+}
+
 #user-info {
-  margin-top: 50%;
+  margin-top: 5%;
   font-size: 20px;
   font-family: 'Lato', sans-serif;
-  color: white;
-}
-
-::-webkit-scrollbar {
-  width: 20px;
-}
-
-::-webkit-scrollbar-track {
-  background: white;
-}
-
-::-webkit-scrollbar-thumb {
-  background: white;
+  color: #282828;
 }
 
 h1 {
