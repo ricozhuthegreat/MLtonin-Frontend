@@ -123,9 +123,9 @@ var chart = new Chart(ctx, {
     options: {}
 });
 
-// Every 5 seconds, call a periodic function that updates the sleep graph/chart
+// Every 3 seconds, call a periodic function that updates the sleep graph/chart with new prediction data
 setInterval(function() {
   // Remove and re-apply data
   addData(chart, GRAPH_LABELS, energy_data_array);
   removeData(chart);
-}, 5000);
+}, 3000);

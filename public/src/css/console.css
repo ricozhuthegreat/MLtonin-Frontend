@@ -26,9 +26,8 @@
   display: table-cell;
   border-radius: 2%;
   background-color: white;
-  padding: 5%;
+  padding: 3%;
   margin-top: 5%;
-  margin-right: 5%;
 }
 
 #side-nav.left-side {
@@ -46,8 +45,9 @@
 #console.right-side {
   float: right;
   background-color: #282828;
-  margin-right: 1%;
+  margin-right: 0%;
   margin-top: 1%;
+  border-spacing: 5vh 2vh;
 }
 
 #user-greeting {
@@ -67,6 +67,10 @@
   font-size: 20px;
   font-family: 'Lato', sans-serif;
   color: #282828;
+}
+
+#c-tired-status {
+  width: 400px;
 }
 
 h1 {
