@@ -108,6 +108,14 @@
   background-color: #262626;
 }
 
+#left-plane {
+  float: left;
+}
+
+#right-plane {
+  float: right;
+}
+
 #titleText {
   position: absolute;
   color: white;
@@ -124,6 +132,15 @@
   margin-top: -20%;
   margin-left: 8%;
   padding-right: 3%;
+}
+
+img.icon-main {
+  position: absolute;
+  width: 30%;
+  height: 65%;
+  margin-top: -40%;
+  margin-right: 12%;
+  right: 0;
 }
 
 body {
