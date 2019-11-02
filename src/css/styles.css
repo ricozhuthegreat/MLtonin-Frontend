@@ -1,4 +1,64 @@
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+#mainNav {
+  padding-top: 8%;
+  padding-bottom: 5%;
+  -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
+  transition: padding-top 0.3s, padding-bottom 0.3s;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  margin-top: 1%;
+  margin-left: -1%;
+}
+
+#mainNav.navbar {
+  padding: 2% 2%;
+  font-size: 25px;
+}
+
+#mainNav.navbar-scroll {
+  padding-top: 1%;
+  padding-bottom: 0;
+  background-color: white;
+}
+
+#mainNav.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#mainNav.nav-list .nav-item {
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 0%;
+  text-decoration: none;
+}
+
+#mainNav.nav-list .nav-item a {
+  padding-right: 20vh;
+  text-decoration: none;
+  color: white;
+}
+
+#mainNav.nav-list .nav-item a:hover {
+  background-color: #262626;
+}
+
+#titleText {
+  font-size: 50vh;
+}
+
 body {
   background-color: #282828;
 }
