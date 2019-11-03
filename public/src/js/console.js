@@ -4,6 +4,8 @@ const GRAPH_LABELS = ["0", "5", "10", "15", "20"];
 
 // Integer user energy level array
 let energy_data_array = [0, 1, 2, 3];
+// Face contour landmarks array
+let face_exps;
 
 // Integer variables to store sleep metrics
 let t_energy = 0;
@@ -21,6 +23,68 @@ let user_profile_pic = document.getElementById("user-profile-pic");
 let user_info = document.getElementById("user-info");
 // Get DOM elements for the right side widgets
 let c_tired_status = document.getElementById("c-tired-status");
+let c_tired_subt = document.getElementById("c-tired-subtitle");
+
+// Get the ASM Score widget
+let asm_widget = document.getElementById("ASM");
+asm_widget.addEventListener("mouseover", fade_out, false);
+asm_widget.addEventListener("mouseout", show_metrics, false);
+
+// Listen for face landmarks to store
+window.addEventListener("PassToBackground", function(evt) {
+  if (evt.detail.resizedDetections[0] !== undefined) {
+    face_exps = evt.detail.resizedDetections[0].expressions;
+  } else {
+    face_exps = undefined;
+  }
+}, false);
+
+
+// This method removes all child roots of the asm_widget
+function fade_out (event) {
+
+  // Clear all root nodes
+  while (asm_widget.firstChild) {
+    asm_widget.removeChild(asm_widget.firstChild);
+  }
+
+  asm_widget.style.width = "60vh";
+
+  if (face_exps !== undefined) {
+    // Create and append text nodes for consensus contours
+    let fatigue_val = face_exps.fatigue;
+    let neutral_val = face_exps.neutral;
+    let happy_val = face_exps.happy;
+    let sad_val = face_exps.sad;
+
+    let fatigue_node = document.createElement("p").appendChild(document.createTextNode("Fatigue: " + fatigue_val));
+    let neutral_node = document.createElement("p").appendChild(document.createTextNode("Neutral: " + neutral_val));
+    let happy_node = document.createElement("p").appendChild(document.createTextNode("Happiness: " + happy_val));
+    let sad_node = document.createElement("p").appendChild(document.createTextNode("Sadness: " + sad_val));
+    //fatigue_node.style.fontFamily = "Arial";
+
+    asm_widget.appendChild(fatigue_node);
+    asm_widget.appendChild(neutral_node);
+    asm_widget.appendChild(happy_node);
+    asm_widget.appendChild(sad_node);
+  } else {
+    show_metrics(event);
+  }
+
+}
+
+// This method re-appends all new metric info roots to asm_widget
+function show_metrics (event) {
+
+  // Clear all root nodes
+  while (asm_widget.firstChild) {
+    asm_widget.removeChild(asm_widget.firstChild);
+  }
+
+  asm_widget.appendChild(c_tired_subt);
+  asm_widget.appendChild(c_tired_status);
+
+}
 
 // This function appends data to the chart
 function addData(chart, label, data) {
@@ -152,8 +216,32 @@ var chart = new Chart(ctx, {
     options: {}
 });
 
+// This function votes to achieve consensus among the various operations
+function consensus (c_energy) {
+
+  // Check to see if a secondary value exists or not. If not, return the current value
+  if (face_exps === undefined) {
+    return c_energy;
+  }
+
+  // Get the tf.js fatigue perception (2nd viewpoint)
+  let fatigue_val = face_exps.fatigue * 10;
+
+  // Achieve compromise if outside of range, otherwise retrun c_energy. Inverse of c_energy should be fatigue value
+  if (Math.abs((10 - c_energy) - fatigue_val) <= 5) {
+    return c_energy;
+  } else {
+    // Achieve compromise
+    return (c_energy - fatigue_val)/5.0;
+  }
+
+}
+
 // This function returns a congrugated sleep score from 0 - 10 (0 meaning you need sleep and 10 meaning you are full of energy!)
 function aggregate_sleep_calculation (c_energy) {
+
+  // Get the appropriate c_energy value by checking consensus
+  c_energy = consensus(c_energy);
 
   // Find the total amount of energy over course of program and add the current energy level to it
   t_energy += c_energy;
@@ -165,12 +253,12 @@ function aggregate_sleep_calculation (c_energy) {
   let diff = average_energy - l_energy;
 
   // Check for outliers and vote for consensus, if the magnitude is greater than or equal to 3
-  if (Math.abs(diff) >= 3) {
+  if (Math.abs(diff) >= 4) {
     // Get the negative/positive magnitude and multiply it to the cap value (3)
     diff = (diff / Math.abs(diff)) * 3;
   }
 
-  // Find the
+  // Find the average
   average_energy += (diff)/2;
 
   if (average_energy <= 0) {

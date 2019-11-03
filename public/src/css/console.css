@@ -29,12 +29,17 @@
   padding: 3%;
 }
 
-.widget1 {
+#ASM.widget1 {
   display: table-cell;
   border-radius: 2%;
   background-color: white;
   padding-left: 6%;
   padding-top: 6%;
+  transition: 0.15s;
+}
+
+#ASM.widget1:hover {
+  background-color: white;
 }
 
 #side-nav.left-side {
@@ -70,7 +75,7 @@
 }
 
 #user-info {
-  margin-top: 5%;
+  margin-top: 0%;
   font-size: 20px;
   font-family: 'Lato', sans-serif;
   color: #282828;

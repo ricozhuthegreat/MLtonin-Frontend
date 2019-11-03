@@ -28,5 +28,9 @@ videoEl.addEventListener('play', () => {
     faceapi.draw.drawDetections(canvas, resizedDetections)
     faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
     faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+    // Dispatch the landmarks positions
+    let message = {resizedDetections};
+    let event = new CustomEvent("PassToBackground", {detail: message});
+    window.dispatchEvent(event);
   }, 100)
 })
