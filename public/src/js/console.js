@@ -9,8 +9,8 @@ let energy_data_array = [0, 1, 2, 3];
 let t_energy = 0;
 // Last recorded energy level
 let l_energy = 0;
-// Number of cycles
-let n_cycles = 0;
+// Number of cycles, start with one to avoid division by 0 (nan)
+let n_cycles = 1;
 
 // Realtime database initialization
 let db = firebase.database();
@@ -152,7 +152,7 @@ var chart = new Chart(ctx, {
     options: {}
 });
 
-// This function returns a congrugated sleep score from 0 - 100 (0 meaning you need sleep and 100 meaning you are full of energy!)
+// This function returns a congrugated sleep score from 0 - 10 (0 meaning you need sleep and 10 meaning you are full of energy!)
 function aggregate_sleep_calculation (c_energy) {
 
   // Find the total amount of energy over course of program and add the current energy level to it
@@ -177,11 +177,15 @@ function aggregate_sleep_calculation (c_energy) {
     average_energy = 0;
   }
 
+  if (average_energy >= 10) {
+    average_energy = 10;
+  }
+
   // Update l_energy and icnrement n_cycles (cycle complete!). This function is only called once per cycle
   l_energy = c_energy;
   n_cycles++;
 
-  return average_energy;
+  return Math.round(average_energy * 10)/10;
 
 }
 
