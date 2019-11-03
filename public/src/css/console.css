@@ -53,7 +53,7 @@
   float: right;
   background-color: #282828;
   margin-right: 0%;
-  margin-top: 1%;
+  margin-top: 12%;
   border-spacing: 5vh 2vh;
 }
 
@@ -88,8 +88,7 @@
   font-family: 'Lato', sans-serif;
 }
 
-#videoElement {
-  z-index: 1;
+#videoEl {
   margin-left: -2%;
   width: 40vh;
   height: 50vh;
@@ -97,10 +96,8 @@
 
 #overlay {
   position: absolute;
-  margin-top: -40vh;
-  z-index: 2;
-  width: 40vh;
-  height: 50vh;
+  margin-top: 220px;
+  margin-left: -280px;
 }
 
 #battery {

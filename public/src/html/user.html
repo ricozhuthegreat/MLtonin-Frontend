@@ -18,8 +18,11 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type = "text/javascript" src = "../js/jquery-3.4.1.js"></script>
     <!-- Local scripts -->
     <script type = "text/javascript" src = "../js/firebaseinit.js"></script>
+    <script defer src = "../js/face-api.min.js"></script>
+    <script defer src = "../js/face.js"></script>
 
   </head>
 
@@ -35,8 +38,7 @@
 
         <div id = "user-profile-pic">
 
-          <video autoplay="true" onplay="onPlay(this)" id="videoElement"></video>
-          <canvas id = "overlay"/>
+          <video autoplay="true" id="videoEl"></video>
 
         </div>
 
@@ -54,10 +56,6 @@
 
       <div class = "widget">
         <canvas id = "sleep-graph" width = "375px" height = "220px"> </cavas>
-      </div>
-
-      <div class = "widget2">
-
       </div>
 
 
