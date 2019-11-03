@@ -5,6 +5,13 @@ const GRAPH_LABELS = ["0", "5", "10", "15", "20"];
 // Integer user energy level array
 let energy_data_array = [0, 1, 2, 3];
 
+// Integer variables to store sleep metrics
+let t_energy = 0;
+// Last recorded energy level
+let l_energy = 0;
+// Number of cycles
+let n_cycles = 0;
+
 // Realtime database initialization
 let db = firebase.database();
 
@@ -145,6 +152,39 @@ var chart = new Chart(ctx, {
     options: {}
 });
 
+// This function returns a congrugated sleep score from 0 - 100 (0 meaning you need sleep and 100 meaning you are full of energy!)
+function aggregate_sleep_calculation (c_energy) {
+
+  // Find the total amount of energy over course of program and add the current energy level to it
+  t_energy += c_energy;
+
+  // Find the average energy level over time
+  let average_energy = (t_energy)/(n_cycles);
+
+  // Find the difference between the current average and the last cycle's value (negative for decrease, positive for increase)
+  let diff = average_energy - l_energy;
+
+  // Check for outliers and vote for consensus, if the magnitude is greater than or equal to 3
+  if (Math.abs(diff) >= 3) {
+    // Get the negative/positive magnitude and multiply it to the cap value (3)
+    diff = (diff / Math.abs(diff)) * 3;
+  }
+
+  // Find the
+  average_energy += diff;
+
+  if (average_energy <= 0) {
+    average_energy = 0;
+  }
+
+  // Update l_energy and icnrement n_cycles (cycle complete!). This function is only called once per cycle
+  l_energy = c_energy;
+  n_cycles++;
+
+  return average_energy;
+
+}
+
 // Every 3 seconds, call a periodic function that updates the sleep graph/chart with new prediction data
 setInterval(function() {
 
@@ -157,7 +197,8 @@ setInterval(function() {
     c_tired_status.removeChild(c_tired_status.firstChild);
   }
 
-  let c_tired_tn = document.createTextNode(energy_data_array[0] + "");
+  // Append the aggregated sleep calculation to the dashboard
+  let c_tired_tn = document.createTextNode(aggregate_sleep_calculation(energy_data_array[0]) + "");
   let c_tired_el = document.createElement("h1");
   c_tired_status.appendChild(c_tired_el.appendChild(c_tired_tn));
 
