@@ -171,7 +171,7 @@ function aggregate_sleep_calculation (c_energy) {
   }
 
   // Find the
-  average_energy += diff;
+  average_energy += (diff)/2;
 
   if (average_energy <= 0) {
     average_energy = 0;
