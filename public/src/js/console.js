@@ -25,11 +25,6 @@ let user_info = document.getElementById("user-info");
 let c_tired_status = document.getElementById("c-tired-status");
 let c_tired_subt = document.getElementById("c-tired-subtitle");
 
-// Get the ASM Score widget
-let asm_widget = document.getElementById("ASM");
-asm_widget.addEventListener("mouseover", fade_out, false);
-asm_widget.addEventListener("mouseout", show_metrics, false);
-
 // Listen for face landmarks to store
 window.addEventListener("PassToBackground", function(evt) {
   if (evt.detail.resizedDetections[0] !== undefined) {
@@ -38,53 +33,6 @@ window.addEventListener("PassToBackground", function(evt) {
     face_exps = undefined;
   }
 }, false);
-
-
-// This method removes all child roots of the asm_widget
-function fade_out (event) {
-
-  // Clear all root nodes
-  while (asm_widget.firstChild) {
-    asm_widget.removeChild(asm_widget.firstChild);
-  }
-
-  asm_widget.style.width = "60vh";
-
-  if (face_exps !== undefined) {
-    // Create and append text nodes for consensus contours
-    let fatigue_val = face_exps.fatigue;
-    let neutral_val = face_exps.neutral;
-    let happy_val = face_exps.happy;
-    let sad_val = face_exps.sad;
-
-    let fatigue_node = document.createElement("p").appendChild(document.createTextNode("Fatigue: " + fatigue_val));
-    let neutral_node = document.createElement("p").appendChild(document.createTextNode("Neutral: " + neutral_val));
-    let happy_node = document.createElement("p").appendChild(document.createTextNode("Happiness: " + happy_val));
-    let sad_node = document.createElement("p").appendChild(document.createTextNode("Sadness: " + sad_val));
-    //fatigue_node.style.fontFamily = "Arial";
-
-    asm_widget.appendChild(fatigue_node);
-    asm_widget.appendChild(neutral_node);
-    asm_widget.appendChild(happy_node);
-    asm_widget.appendChild(sad_node);
-  } else {
-    show_metrics(event);
-  }
-
-}
-
-// This method re-appends all new metric info roots to asm_widget
-function show_metrics (event) {
-
-  // Clear all root nodes
-  while (asm_widget.firstChild) {
-    asm_widget.removeChild(asm_widget.firstChild);
-  }
-
-  asm_widget.appendChild(c_tired_subt);
-  asm_widget.appendChild(c_tired_status);
-
-}
 
 // This function appends data to the chart
 function addData(chart, label, data) {
@@ -232,7 +180,7 @@ function consensus (c_energy) {
     return c_energy;
   } else {
     // Achieve compromise
-    return (c_energy - fatigue_val)/3.0;
+    return ((c_energy - fatigue_val)/3.0;
   }
 
 }
