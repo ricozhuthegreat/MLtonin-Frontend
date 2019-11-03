@@ -228,11 +228,11 @@ function consensus (c_energy) {
   let fatigue_val = face_exps.fatigue * 10;
 
   // Achieve compromise if outside of range, otherwise retrun c_energy. Inverse of c_energy should be fatigue value
-  if (Math.abs((10 - c_energy) - fatigue_val) <= 5) {
+  if ((((10 - c_energy) >= 5 && fatigue_val >= 5) || ((10 - c_energy) < 5 && fatigue_val < 5)) && Math.abs((10 - c_energy) - fatigue_val) <= 4) {
     return c_energy;
   } else {
     // Achieve compromise
-    return (c_energy - fatigue_val)/5.0;
+    return (c_energy - fatigue_val)/3.0;
   }
 
 }
@@ -253,7 +253,7 @@ function aggregate_sleep_calculation (c_energy) {
   let diff = average_energy - l_energy;
 
   // Check for outliers and vote for consensus, if the magnitude is greater than or equal to 3
-  if (Math.abs(diff) >= 4) {
+  if (Math.abs(diff) >= 5) {
     // Get the negative/positive magnitude and multiply it to the cap value (3)
     diff = (diff / Math.abs(diff)) * 3;
   }
