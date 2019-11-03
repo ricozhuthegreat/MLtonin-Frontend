@@ -180,7 +180,7 @@ function consensus (c_energy) {
     return c_energy;
   } else {
     // Achieve compromise
-    return ((c_energy - fatigue_val)/3.0;
+    return (c_energy - fatigue_val)/3.0;
   }
 
 }
